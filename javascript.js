@@ -24,6 +24,16 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
+function determineWinner(score) {
+    if (score >= 1) {
+        alert("You are the winner!");
+    } else if (score <= -1) {
+        alert("You're the sore loser");
+    } else {
+        alert("It's a tie!");
+    }
+}
+
 function game(computerSelection) {
     let score = 0;
     let playerSelection = prompt("Rock, paper, scissors, shoot!");
@@ -37,7 +47,7 @@ function game(computerSelection) {
         }
      }
      console.log("The score is" + score);
-     return score;
+     determineWinner(score);
 }
  
 const computerSelection = getComputerChoice();
