@@ -10,28 +10,27 @@ function playRound(playerSelection, computerSelection, winStatus) {
         return;
     }
 
-    round++;
-    const roundDisplay = document.querySelector('.round');
-    roundDisplay.textContent = `Round ${round}`;
-
     displayMoves(playerSelection, computerSelection);
 
     const displayComputerScore = document.querySelector('.computerScore');
     const displayPlayerScore = document.querySelector('.playerScore');
 
     if (playerSelection === computerSelection) {
-        winStatus.textContent = "It's a draw!";
+        winStatus.textContent = `${playerSelection} ties with ${computerSelection}. it's a draw!`;
+        winStatus.setAttribute('style', 'display:flex; justify-content:center;');
         return;
     } else if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock")) {
         computerScore++;
-        winStatus.textContent = "Computer wins!";
+        winStatus.textContent = `${playerSelection} is beaten by ${computerSelection}. computer wins!`;
         displayComputerScore.textContent = `Computer score: ${computerScore}`;
+        winStatus.setAttribute('style', 'display:flex; justify-content:center;');
     } else if ((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection == "paper")) {
         playerScore++;
-        winStatus.textContent = "Player wins!"
+        winStatus.textContent = `${playerSelection} beats ${computerSelection}. player wins!`;
         displayPlayerScore.textContent = `Player score: ${playerScore}`;
+        winStatus.setAttribute('style', 'display:flex; justify-content:center;');
     }
-
+    
     if (computerScore == 5 || playerScore == 5){
         determineWinner();
         winStatus.textContent = "";
@@ -64,13 +63,17 @@ function determineWinner() {
         window.location.reload();
     })
     outcome.appendChild(retry);
+    //retry.setAttribute('style', 'display:block; margin: auto;');
+    outcome.setAttribute('style', 'display:flex; flex-direction:column; margin:10px; align-items:center; gap:10px;');
+
 }
 
 function game(computerSelection) {
 
-    const move = document.querySelector('.move');
+    const instructions = document.querySelector('.instructions');
     const winStatus = document.createElement('div');
-    move.appendChild(winStatus);
+    instructions.appendChild(winStatus);
+    winStatus.setAttribute('style', 'margin-bottom: 15px;');
 
     const rock = document.querySelector('.rock');
     rock.addEventListener('click', function () {
@@ -95,6 +98,5 @@ function game(computerSelection) {
 
 let playerScore = 0;
 let computerScore = 0;
-let round = 1;
 const computerSelection = getComputerChoice();
 game(computerSelection, playerScore, computerScore);
